@@ -1,0 +1,36 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+metadata:
+  name: ticketing
+build:
+  local:
+    push: false
+  artifacts:
+  - image: aavish30/auth
+    context: auth
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
+  - image: aavish30/tickets
+    context: tickets
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: 'src/**/*.ts'
+          dest: .
+  - image: aavish30/client-ticketing
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - src: '**/*.js'
+          dest: .
+deploy:
+  kubectl:
+    manifests:
+    - ./infra/k8s/*

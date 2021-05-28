@@ -1,0 +1,11 @@
+# Common library
+common/*
+
+# node_modules
+*/**/node_modules
+
+# misc
+client/.next/
+
+# package lock files
+*/**/package-lock.json
